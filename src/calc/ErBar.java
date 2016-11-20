@@ -1,4 +1,4 @@
-package calculations;
+package calc;
 
 public class ErBar {
 	private double TC;

@@ -1,4 +1,4 @@
-package calculations;
+package calc;
 
 public class Converter {
 	public static double tempCtoF(double tempC) {

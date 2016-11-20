@@ -1,4 +1,4 @@
-package calculations;
+package calc;
 
 public class Calc {
 	public static double  DensityFromZ(double TempDegF, double PresPsia, double GasZ, double GasGravity ) {

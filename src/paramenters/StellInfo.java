@@ -12,7 +12,7 @@ public class StellInfo {
 	private double chromium;
 	private double carbon;
 	
-	private StellInfo() {
+	public StellInfo() {
 		setTubingDepth(1518);
 		setTubingOutDiameter(0.178);
 		setTubingThick(9.19);
