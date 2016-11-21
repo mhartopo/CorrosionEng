@@ -212,8 +212,8 @@ public class Calculation {
 		calcTubingLength();
 		calcTemp();
 		calcPressure();
-		calcpHactual();
 		calcFCO2();
+		calcpHactual();
 		calcWaterRate();
 		calcWaterCut();
 		calcVcorNorm();
