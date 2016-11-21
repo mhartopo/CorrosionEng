@@ -4,7 +4,7 @@ public class ErBar {
 	private double TC;
 	private double PC;
 	
-	public ErBar(double tc, double pc) {
+	public ErBar(double pc, double tc) {
 		setTC(tc);
 		setPC(pc);
 	}

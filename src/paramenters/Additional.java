@@ -1,9 +1,17 @@
 package paramenters;
 
 public class Additional {
+	
+	public static final int INHIB_NONE = 0;
+	public static final int INHIB_CONT = 1;
+	public static final int INHIB_SEQ = 2;
+	public static final int FE_NONE = 0;
+	public static final int FE_SUPERSATURATED = 1;
+	
 	private int inhibitionStat;
 	private double inhibitorAvail;
 	private int inhibitionPeriod;
+	private double inhibitorEff;
 	private int FeStatus;
 	private double aceticAcid;
 	private double erosionalVel;
@@ -12,6 +20,7 @@ public class Additional {
 		setInhibitionStat(0);
 		setInhibitorAvail(0);
 		setInhibitionPeriod(0);
+		setInhibitorEff(0);
 		setFeStatus(0);
 		setAceticAcid(0);
 		setErosionalVel(122);
@@ -63,5 +72,13 @@ public class Additional {
 
 	public void setErosionalVel(double erosionalVel) {
 		this.erosionalVel = erosionalVel;
+	}
+
+	public double getInhibitorEff() {
+		return inhibitorEff;
+	}
+
+	public void setInhibitorEff(double inhibitorEff) {
+		this.inhibitorEff = inhibitorEff;
 	}
 }
