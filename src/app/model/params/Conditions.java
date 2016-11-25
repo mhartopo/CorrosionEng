@@ -22,7 +22,7 @@ public class Conditions {
 		setGasH2S(0.00005);
 		setN2(0);
 		setEqNaCl(0);
-		setDisolveBicarbon(500);
+		setDisolveBicarbon(5000);
 		setStandardTemp(60);
 		setStandardPress(15.025);
 	}

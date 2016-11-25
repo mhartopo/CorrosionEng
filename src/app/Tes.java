@@ -33,8 +33,8 @@ public class Tes extends Application {
 			primaryStage.setScene(scene);
 			
 			ChartViewController controller = loader.getController();
-			controller.drawChart(calc);
-			
+			controller.drawChart(calc,1);
+			//controller.drawChart(calc,2);
 			primaryStage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

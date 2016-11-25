@@ -1,8 +1,8 @@
 package app.view;
 
-import java.util.ArrayList;
-
 import app.model.core.*;
+import app.model.info.DrawOpt;
+import app.model.info.Vars;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -17,25 +17,71 @@ public class ChartViewController {
 	private NumberAxis yAxis;
 	
 	public void initialize() {
-		lineChart.setTitle("Chart");
 		lineChart.setAnimated(false);
 		lineChart.setCreateSymbols(false);
 	}
 	
-	public void drawChart(Calculation calc) {
-		ArrayList<Double> tubingl = calc.getTubingl();
-		ArrayList<Double> ph = calc.getpHactual();
-		ArrayList<Temperature> temp = calc.getTemperature();
-		 XYChart.Series<Number, Number> series = new XYChart.Series<>();
-		 series.setName("My portfolio");
+	public void drawChart(Calculation calc, int op) {
+		lineChart.getData().clear();
+		XYChart.Series<Number, Number> series = new XYChart.Series<>();
+		String name = "";
         // Create a XYChart.Data
-        for (int i = 0; i < temp.size(); i++) {
-        	System.out.println(ph.get(i));
-            series.getData().add(new XYChart.Data<>(tubingl.get(i).doubleValue(), ph.get(i)));
-        }
+		if(op == DrawOpt.mass_loss) {
+			for (int i = 0; i <= Vars.EXPORSURE_TIME; i++) {
+				series.getData().add(new XYChart.Data<>(i, calc.getMassLoss().get(i)));
+	        }
+		} else if (op == DrawOpt.temperature) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getTemperature().get(i).getC()));
+	        }
+		} else if (op == DrawOpt.pressure) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getPressure().get(i).getBara()));
+	        }
+		} else if (op == DrawOpt.ph) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getpHactual().get(i)));
+	        }
+		} else if(op == DrawOpt.ucr_norm) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getVcorNorm().get(i)));
+	        }
+		} else if (op == DrawOpt.ucr_qt) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getVcorQT().get(i)));
+	        }
+		} else if (op == DrawOpt.ccr_norm) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getVcorCorrectedNorm().get(i)));
+	        }
+		} else if (op == DrawOpt.ccr_qt) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getVcorCorrectedQT().get(i)));
+	        }
+		} else  if (op == DrawOpt.waterrate) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getWaterRate().get(i)));
+	        }
+		} else if (op == DrawOpt.watercut) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getWaterCut().get(i)));
+	        }
+		} else if (op == DrawOpt.liq_holdup) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getLiqHold().get(i)));
+	        }
+		} else if (op == DrawOpt.liq_vel) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getLiqVel().get(i)));
+	        }
+		} else if (op == DrawOpt.gas_vel) {
+			for (int i = 0; i < calc.getSize(); i++) {
+				series.getData().add(new XYChart.Data<>(calc.getTubingl().get(i), calc.getGasVel().get(i)));
+	        }
+		} else {
+			System.out.println("Pilihan tidak tersedia");
+		}
+		series.setName(name);
         lineChart.getData().add(series);
 	}
-	
-	
-	
 }

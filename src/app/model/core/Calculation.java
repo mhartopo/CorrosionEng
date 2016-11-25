@@ -13,6 +13,7 @@ public class Calculation {
 	private StellInfo stell;
 	private Angle angle;
 	private int size;
+	
 	//temporary output
 	private double gasFlowrate;
 	private double wbreak;
@@ -26,7 +27,7 @@ public class Calculation {
 	private double fc;
 	//end temporary
 	
-	DetailOutput detailOut;
+	private DetailOutput detailOut;
 	
 	//calc intermediate data
 	private ArrayList<Double> depth;
@@ -42,82 +43,123 @@ public class Calculation {
 	private ArrayList<Double> vcorCorrectedNorm;
 	private ArrayList<Double> vcorCorrectedQT;
 	private ArrayList<Double> massLoss;
+	private ArrayList<Double> liqHold;
+	private ArrayList<Double> liqVel;
+	private ArrayList<Double> gasVel;
 	
 	public Calculation() {
-		detailOut = new DetailOutput();
-		conditions = new Conditions();
-		production = new ProductionData();
-		stell =  new StellInfo();
-		addInfo  = new Additional();
-		size = Vars.TotalSegment;
-		angle = new Angle(size);
+		setDetailOut(new DetailOutput());
+		setConditions(new Conditions());
+		setProduction(new ProductionData());
+		setStell(new StellInfo());
+		setAddInfo(new Additional());
+		setSize(Vars.TotalSegment);
+		setAngle(new Angle(getSize()));
+		init();
+		setDetailOut(new DetailOutput());
 		calcTemporary();
 	}
 	
 	public Calculation(Conditions conditions, ProductionData production, StellInfo stell, Additional addInfo, Angle angle) {
-		detailOut = new DetailOutput();
-		this.conditions = conditions;
-		this.production = production;
-		this.stell = stell;
-		this.addInfo = addInfo;
-		size = Vars.TotalSegment;
-		this.angle = angle;
+		setDetailOut(new DetailOutput());
+		this.setConditions(conditions);
+		this.setProduction(production);
+		this.setStell(stell);
+		this.setAddInfo(addInfo);
+		setSize(Vars.TotalSegment);
+		this.setAngle(angle);
+		init();
 		calcTemporary();
+	}
+	
+	public void init() {
+		setDepth(new ArrayList<Double>());
+		setTubingl(new ArrayList<Double>());
+		setTemperature(new ArrayList<Temperature>());
+		setpHactual(new ArrayList<Double>());
+		setPressure(new ArrayList<Pressure>());
+		setWaterRate(new ArrayList<Double>());
+		setWaterCut(new ArrayList<Double>());
+		setVcorNorm(new ArrayList<Double>());
+		setVcorQT(new ArrayList<Double>());
+		setVcorCorrectedNorm(new ArrayList<Double>());
+		setVcorCorrectedQT(new ArrayList<Double>());
+		setMassLoss(new ArrayList<Double>());
+		fco2 = new ArrayList<Double>();
+		liqHold = new ArrayList<Double>();
+		liqVel =  new ArrayList<Double>();
+		gasVel =  new ArrayList<Double>();
+	}
+	
+	public void clear() {
+		depth.clear();
+		tubingl.clear();
+		temperature.clear();
+		pHactual.clear();
+		pressure.clear();
+		waterRate.clear();
+		waterCut.clear();
+		vcorNorm.clear();
+		vcorQT.clear();
+		vcorCorrectedNorm.clear();
+		vcorCorrectedQT.clear();
+		massLoss.clear();
+		fco2.clear();
+		liqHold.clear();
+		liqVel.clear();
+		gasVel.clear();
 	}
 	
 	//cacl temporary out
 	
 	public void calcTemporary() {
-		gasFlowrate = 35.31*production.getGasFlowrate();
-		wbreak = (-0.0166*production.getAPIGravity()+0.83)*100;
-		innerd = stell.getTubingOutDiameter()-2*stell.getTubingThick()/1000;
+		gasFlowrate = 35.31*getProduction().getGasFlowrate();
+		wbreak = (-0.0166*getProduction().getAPIGravity()+0.83)*100;
+		innerd = getStell().getTubingOutDiameter()-2*getStell().getTubingThick()/1000;
 		innerPipeArea = Math.PI*innerd*innerd/4;
-		liqFlowRate = production.getWaterFlowrate() + production.getGasFlowrate();
-		Zfactor = 0.988831629795888;
-		contInhibitEff = (addInfo.getInhibitorAvail()/100)*(addInfo.getInhibitorEff()/100)*100;
-		seqInhibitEff = 0;
+		setLiqFlowRate(getProduction().getWaterFlowrate() + getProduction().getGasFlowrate());
+		setZfactor(0.988831629795888);
+		contInhibitEff = (getAddInfo().getInhibitorAvail()/100)*(getAddInfo().getInhibitorEff()/100)*100;
+		setSeqInhibitEff(0);
 		
-		if(stell.getChromium() == 0) {
+		if(getStell().getChromium() == 0) {
 			fcr = 0;
 		} else {
-			fcr = 1.6337*stell.getChromium()+0.9711;
+			fcr = 1.6337*getStell().getChromium()+0.9711;
 		}
 		
-		if(stell.getCarbon() == 0) {
+		if(getStell().getCarbon() == 0) {
 			fc = 0;
 		} else {
-			fc = 2.4872*stell.getCarbon()+0.8211;
+			fc = 2.4872*getStell().getCarbon()+0.8211;
 		}
 	}
 	
 	//hitung depth
 	public void calcDepth() {
-		setDepth(new ArrayList<Double>());
-		for(int i = 0; i < size; i++) {
+		for(int i = 0; i < getSize(); i++) {
 			if(i == 0) {
 				getDepth().add(new Double(0));
 			} else {
-				getDepth().add(getDepth().get(i-1) + stell.getTubingDepth() / size);
+				getDepth().add(getDepth().get(i-1) + getStell().getTubingDepth() / getSize());
 			}
 		}
 	}
 	
 	// hitung tubing length
 	public void calcTubingLength() {
-		setTubingl(new ArrayList<Double>());
-		for(int i = 0; i < size; i++) {
+		for(int i = 0; i < getSize(); i++) {
 			getTubingl().add(getDepth().get(i)*3.2808);
 		}
 	}
 	
 	// hitung temperature
 	public void calcTemp(){
-		setTemperature(new ArrayList<Temperature>());
-		double scale = (conditions.getTempBottomhole() - conditions.getTempWellhead()) / size;
+		double scale = (getConditions().getTempBottomhole() - getConditions().getTempWellhead()) / getSize();
 		double cval;
-		cval = conditions.getTempWellhead();
+		cval = getConditions().getTempWellhead();
 		getTemperature().add(new Temperature(cval, 'C'));
-		for(int i = 1; i < size; i++) {
+		for(int i = 1; i < getSize(); i++) {
 			cval = getTemperature().get(i-1).getC() + scale;
 			getTemperature().add(new Temperature(cval, 'C'));
 		}
@@ -125,100 +167,111 @@ public class Calculation {
 	
 	//hitung  tekanan
 	public void calcPressure() {
-		pressure = new ArrayList<Pressure>();
-		double scale = (conditions.getPressBottomhole() - conditions.getPressWellhead()) / size;
-		double bval = conditions.getPressWellhead();
-		pressure.add(new Pressure(bval, "bara"));
-		for(int i = 1; i < size; i++) {
-			bval = pressure.get(i-1).getBara() + scale;
-			pressure.add(new Pressure(bval, "bara"));
+		double scale = (getConditions().getPressBottomhole() - getConditions().getPressWellhead()) / getSize();
+		double bval = getConditions().getPressWellhead();
+		getPressure().add(new Pressure(bval, "bara"));
+		for(int i = 1; i < getSize(); i++) {
+			bval = getPressure().get(i-1).getBara() + scale;
+			getPressure().add(new Pressure(bval, "bara"));
 		}
 	}
 	
 	public void calcpHactual() {
-		setpHactual(new ArrayList<Double>());
-		for(int i = 0; i < size; i++) {
+		for(int i = 0; i < getSize(); i++) {
 			pHactual.add(new Double(getpHactual(i)));
 		}
 	}
 	
 	
 	public void calcFCO2() {
-		fco2 = new ArrayList<Double>();
-		for(int i = 0; i < size; i++) {
+		for(int i = 0; i < getSize(); i++) {
 			fco2.add(new Double(getFCO2(i)));
 		}
 	}
 	
 	public void calcWaterRate() {
-		waterRate = new ArrayList<Double>();
-		Double wrate =  new Double(production.getWaterFlowrate());
-		waterRate.add(wrate);
-		for(int i = 1; i < size ; i++) {
+		Double wrate =  new Double(getProduction().getWaterFlowrate());
+		getWaterRate().add(wrate);
+		
+		for(int i = 1; i < getSize() ; i++) {
 			double dM3d = getM3PerD(i) - getM3PerD(i-1);
-			if ((waterRate.get(i-1) - (dM3d)) < 0) {
+			if ((getWaterRate().get(i-1) - (dM3d)) < 0) {
 				wrate = 0.001;
 			} else {
-				wrate = dM3d;
+				wrate = getWaterRate().get(i-1)- dM3d;
 			}
-			waterRate.add(wrate);
+			getWaterRate().add(wrate);
 		}
 	}
 	
 	public void calcWaterCut() {
-		waterCut = new ArrayList<Double>();
-		for(int i = 0; i < size; i++) {
-			waterCut.add(waterRate.get(i)/(production.getOilFlowrate()+waterRate.get(i))*100);
+		for(int i = 0; i < getSize(); i++) {
+			getWaterCut().add(getWaterRate().get(i)/(getProduction().getOilFlowrate()+getWaterRate().get(i))*100);
 		}
 	}
 	
 	public void calcVcorNorm() {
-		vcorNorm = new ArrayList<Double>();
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < getSize(); i++) {
 			double res = 1/(fcr/fc/getVrNormal(i) + 1/getVmNormal(i));
-			vcorNorm.add(new Double(res));
+			getVcorNorm().add(new Double(res));
 		}
 	}
 	
 	public void calcVcorQT() {
-		vcorQT = new ArrayList<Double>();
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < getSize(); i++) {
 			double res = 1/(fcr/getVrQT(i)+1/getVmQT(i));
-			vcorQT.add(new Double(res));
+			getVcorQT().add(new Double(res));
 		}
 	}
 	
 	public void caclVcorCNOrm() {
-		vcorCorrectedNorm = new ArrayList<Double>();
-		for (int i = 0; i < size; i++) {
-			double res = vcorNorm.get(i)* getFScale(i) * getFoil(i)* getFH2S(i);
-			vcorCorrectedNorm.add(new Double(res));
+		for (int i = 0; i < getSize(); i++) {
+			double res = getVcorNorm().get(i)* getFScale(i) * getFoil(i)* getFH2S(i);
+			getVcorCorrectedNorm().add(new Double(res));
 		}
 	}
 	
 	public void caclVcorCQT() {
-		vcorCorrectedQT = new ArrayList<Double>();
-		for (int i = 0; i < size; i++) {
-			double res = vcorQT.get(i)*getFScale(i)*getFoil(i)* getFH2S(i);
-			if (addInfo.getInhibitionStat() == Additional.INHIB_NONE) {
+		for (int i = 0; i < getSize(); i++) {
+			double res = getVcorQT().get(i)*getFScale(i)*getFoil(i)* getFH2S(i);
+			if (getAddInfo().getInhibitionStat() == Additional.INHIB_NONE) {
 				res *= 1;
-			} else if(addInfo.getInhibitionStat() == Additional.INHIB_CONT) {
+			} else if(getAddInfo().getInhibitionStat() == Additional.INHIB_CONT) {
 				res *= getFinhibitCont(i);
 			} else {
 				res *= this.getFinhibitSeq(i);
 			}
-			vcorCorrectedQT.add(new Double(res));
+			getVcorCorrectedQT().add(new Double(res));
 		}
 	}
 	
 	public void calcMassLoss() {
-		massLoss = new ArrayList<Double>();
-		for(int i = 0; i < Vars.EXPORSURE_TIME; i++) {
-			massLoss.add(getPercentMassLoss(i));
+		double massloss;
+		for(int i = 0; i <= Vars.EXPORSURE_TIME; i++) {
+			massloss = getPercentMassLoss(i);
+			getMassLoss().add(massloss);
+		}
+	}
+	
+	public void calcDetailOut() {
+		double bottomWatercut = getWaterCut().get(getWaterCut().size()-1)/(getProduction().getOilFlowrate()+getWaterCut().get(getWaterCut().size()-1))*100;
+		getProduction().setWatercut(bottomWatercut);
+		
+		double densStell =  getStell().getWeight()/((Math.PI*((Math.pow((getStell().getTubingOutDiameter()/2),2))-Math.pow((innerd/2),2)))*(3.28084*3.28084))/62.428;
+		getDetailOut().setDensStell(densStell);
+	}
+	
+	public void calcFluid() {
+		
+		for(int i = 0; i < getSize(); i++) {
+			liqHold.add(this.getLiqHoldupCh(i));
+			liqVel.add(this.getLiqVel(i));
+			gasVel.add(this.getGasVel(i));
 		}
 	}
 	
 	public void calcAll() {
+		clear();
 		calcDepth();
 		calcTubingLength();
 		calcTemp();
@@ -231,17 +284,20 @@ public class Calculation {
 		calcVcorQT();
 		caclVcorCNOrm();
 		caclVcorCQT();
+		calcFluid();
+		calcDetailOut();
 		calcMassLoss();
+		
 	}
 	//intermediate calculations
 	
 	public double getPCO2(int idx) {
-		double press = pressure.get(idx).getBara();
-		return conditions.getGasCO2()/100*press;
+		double press = getPressure().get(idx).getBara();
+		return getConditions().getGasCO2()/100*press;
 	}
 	
 	public double getFCO2(int idx) {
-		double press = pressure.get(idx).getBara();
+		double press = getPressure().get(idx).getBara();
 		double temp = getTemperature().get(idx).getC();
 		double pco2 = getPCO2(idx);
 		double res = Math.log10(pco2) + (0.0031-1.4/(temp + 273)) * press;
@@ -249,18 +305,18 @@ public class Calculation {
 	}
 	
 	public double getPH2S(int idx) {
-		double press = pressure.get(idx).getBara();
-		return conditions.getGasH2S()/100*press;
+		double press = getPressure().get(idx).getBara();
+		return getConditions().getGasH2S()/100*press;
 	}
 	
 	public double getHCO3(int idx) {
-		return conditions.getDisolveBicarbon()/930583.202931128*(-1/getTemperature().get(idx).getK()+1/getTemperature().get(0).getK())+conditions.getDisolveBicarbon()/45584.5;
+		return getConditions().getDisolveBicarbon()/930583.202931128*(-1/getTemperature().get(idx).getK()+1/getTemperature().get(0).getK())+getConditions().getDisolveBicarbon()/45584.5;
 	}
 	
 	public double getpHactual(int idx) {
 		double hco3 = getHCO3(idx);
 		double tempF = getTemperature().get(idx).getF();
-		double press = pressure.get(idx).getBara();
+		double press = getPressure().get(idx).getBara();
 		return Math.log10(hco3/fco2.get(idx)/14.5037738) + 8.68 + 0.00405*tempF + 0.000000458* Math.pow(tempF,2)-0.0000307*press*14.5;
 	}
 	
@@ -284,7 +340,8 @@ public class Calculation {
 	}
 	
 	public double getVmQT(int idx) {
-		return 2.7* Math.pow(getLiqVel(idx),0.8)/Math.pow(innerd,0.2)*fco2.get(idx);
+		double res = 2.7* Math.pow(getLiqVel(idx),0.8)/Math.pow(innerd,0.2)*fco2.get(idx);
+		return res;
 	}
 	
 	//Water condensation calculation //
@@ -305,16 +362,17 @@ public class Calculation {
 	
 	public double getGasZFactor(int idx) {
 		double tempF = getTemperature().get(idx).getF();
-		double press = pressure.get(idx).getPsia();
-		return Calc.HallYarbGasZG(tempF, press, Vars.GasGravity, conditions.getN2(), conditions.getGasCO2(), conditions.getGasH2S());
+		double press = getPressure().get(idx).getPsia();
+		return Calc.HallYarbGasZG(tempF, press, Vars.GasGravity, getConditions().getN2(), getConditions().getGasCO2(), getConditions().getGasH2S());
 	}
 	
 	public double getACorrelation(int idx) {
-		return getWaterVP(idx)*18*1000000*conditions.getStandardPress() / (10.73*(459.6+ conditions.getStandardTemp())*getGasZFactor(idx));
+		return getWaterVP(idx)*18*1000000*getConditions().getStandardPress() / (10.73*(459.6+ getConditions().getStandardTemp())*getGasZFactor(idx));
 	}
 	
 	public double getLogBCor(int idx) {
-		return 3083.87/(getTemperature().get(idx).getF()+460)+6.6944;
+		double res =  -3083.87/(104+460)+6.6944;//3083.87/(getTemperature().get(idx).getF()+460)+6.6944;
+		return res;
 	}
 	
 	public double getGasGravCorrection(int idx) {
@@ -324,14 +382,14 @@ public class Calculation {
 	}
 	
 	public double getBrineCorrection(int idx) {
-		double equivNacl = conditions.getEqNaCl();
+		double equivNacl = getConditions().getEqNaCl();
 		return 1-0.00000000392* Math.pow(equivNacl,1.44);
 	}
 	
 	public double getWaterContentGas(int idx) {
 		double acor = getACorrelation(idx);
 		double lbcor = getLogBCor(idx);
-		double psia = pressure.get(idx).getPsia();
+		double psia = getPressure().get(idx).getPsia();
 		return (acor/psia + Math.pow(10,lbcor))*getGasGravCorrection(idx)*getBrineCorrection(idx);
 	}
 	
@@ -349,11 +407,11 @@ public class Calculation {
 	//End Water condensation calculation //
 	
 	public double getLiquidFrate(int idx) {
-		return production.getOilFlowrate() + waterRate.get(idx);
+		return getProduction().getOilFlowrate() + getWaterRate().get(idx);
 	}
 	
 	public double getBG(int idx) {
-		return 0.350958*getGasZFactor(idx)*getTemperature().get(idx).getK()/pressure.get(idx).getKpa();
+		return 0.350958*getGasZFactor(idx)*getTemperature().get(idx).getK()/getPressure().get(idx).getKpa();
 	}
 	
 	public double getVsl(int idx) {
@@ -361,7 +419,7 @@ public class Calculation {
 	}
 	
 	public double getVsg(int idx) {
-		return production.getGasFlowrate()*1000000/24/60/60*getBG(idx)/innerPipeArea;
+		return getProduction().getGasFlowrate()*1000000/24/60/60*getBG(idx)/innerPipeArea;
 	}
 	
 	public double getVm(int idx) {
@@ -373,7 +431,7 @@ public class Calculation {
 	}
 	
 	public double getLiqHoldupCh(int idx) {
-		return getLiqHoldup(idx) + production.getHoldupLiquid();
+		return getLiqHoldup(idx) + getProduction().getHoldupLiquid();
 	}
 	
 	public double getLiqVel(int idx) {
@@ -393,7 +451,7 @@ public class Calculation {
 	}
 	
 	public double getDensGas(int idx) {
-		return 0.7*(273+15)/getTemperature().get(idx).getK()*pressure.get(idx).getBara()/1*1.226;
+		return 0.7*(273+15)/getTemperature().get(idx).getK()*getPressure().get(idx).getBara()/1*1.226;
 	}
 	
 	public double getDensMix(int idx) {
@@ -405,10 +463,10 @@ public class Calculation {
 	}
 	
 	public double getFoil(int idx) {
-		if(waterCut.get(idx) < 75) {
-			double res = 0.059*(waterCut.get(idx)/100)/(wbreak/100)*getLiqVel(idx)+
-					1.1* Math.pow(10,(-4))/Math.pow((wbreak/100),2)*angle.getAngleAt(idx)/90+
-					0.059*(waterCut.get(idx)/100)/(wbreak/100)*getLiqVel(idx)*angle.getAngleAt(idx)/90; 
+		if(getWaterCut().get(idx) < 75) {
+			double res = 0.059*(getWaterCut().get(idx)/100)/(wbreak/100)*getLiqVel(idx)+
+					1.1* Math.pow(10,(-4))/Math.pow((wbreak/100),2)*getAngle().getAngleAt(idx)/90+
+					0.059*(getWaterCut().get(idx)/100)/(wbreak/100)*getLiqVel(idx)*getAngle().getAngleAt(idx)/90; 
 			return res;
 		} else {
 			return 1;
@@ -453,25 +511,25 @@ public class Calculation {
 	
 	
 	public double areaOfSpeciment(int idx) {
-		return Math.PI*((stell.getTubingOutDiameter()-(stell.getTubingThick()/1000))*3.28024)*(getTubingl().get(idx)-getTubingl().get(idx-1));
+		return Math.PI*((getStell().getTubingOutDiameter()-(getStell().getTubingThick()/1000))*3.28024)*(getTubingl().get(idx)-getTubingl().get(idx-1));
 	}
 	
 	public double areaOfSpecimentCm(int idx) {
-		return areaOfSpeciment(idx)/929.03;
+		return areaOfSpeciment(idx)*929.03;
 	}
 	
 	public double getDesStell() {
-		return 0;
+		return getDetailOut().getDensStell();
 	}
 	
 	public double getwl(int idx, int expTime) {
-		double res = (vcorCorrectedQT.get(idx-1)*getDesStell()*areaOfSpecimentCm(idx)*expTime)/87.6;
+		double res = (getVcorCorrectedQT().get(idx-1)*getDesStell()*areaOfSpecimentCm(idx)*expTime)/87.6;
 		return res/453592;
 	}
 	
 	public double getPercentMassLoss(int time) {
 		ArrayList<Double> wlArr = new ArrayList<Double>(); 
-		for(int i = 1; i < size; i++) {
+		for(int i = 1; i < getSize(); i++) {
 			wlArr.add(getwl(i, time));
 		}
 		double sum = Calc.sum(wlArr);
@@ -479,7 +537,8 @@ public class Calculation {
 	}
 	
 	
-	//GETTER AND SETTER
+	
+	//GETTER AND SETTER//
 	public ArrayList<Double> getDepth() {
 		return depth;
 	}
@@ -510,5 +569,173 @@ public class Calculation {
 
 	public void setpHactual(ArrayList<Double> pHactual) {
 		this.pHactual = pHactual;
+	}
+
+	public ArrayList<Pressure> getPressure() {
+		return pressure;
+	}
+
+	public void setPressure(ArrayList<Pressure> pressure) {
+		this.pressure = pressure;
+	}
+
+	public ArrayList<Double> getMassLoss() {
+		return massLoss;
+	}
+
+	public void setMassLoss(ArrayList<Double> massLoss) {
+		this.massLoss = massLoss;
+	}
+
+	public ArrayList<Double> getVcorCorrectedQT() {
+		return vcorCorrectedQT;
+	}
+
+	public void setVcorCorrectedQT(ArrayList<Double> vcorCorrectedQT) {
+		this.vcorCorrectedQT = vcorCorrectedQT;
+	}
+
+	public ArrayList<Double> getVcorCorrectedNorm() {
+		return vcorCorrectedNorm;
+	}
+
+	public void setVcorCorrectedNorm(ArrayList<Double> vcorCorrectedNorm) {
+		this.vcorCorrectedNorm = vcorCorrectedNorm;
+	}
+
+	public ArrayList<Double> getVcorQT() {
+		return vcorQT;
+	}
+
+	public void setVcorQT(ArrayList<Double> vcorQT) {
+		this.vcorQT = vcorQT;
+	}
+
+	public ArrayList<Double> getLiqHold() {
+		return liqHold;
+	}
+
+	public void setLiqHold(ArrayList<Double> liqHold) {
+		this.liqHold = liqHold;
+	}
+
+	public ArrayList<Double> getLiqVel() {
+		return liqVel;
+	}
+
+	public void setLiqVel(ArrayList<Double> liqVel) {
+		this.liqVel = liqVel;
+	}
+
+	public ArrayList<Double> getGasVel() {
+		return gasVel;
+	}
+
+	public void setGasVel(ArrayList<Double> gasVel) {
+		this.gasVel = gasVel;
+	}
+
+	public ArrayList<Double> getWaterRate() {
+		return waterRate;
+	}
+
+	public void setWaterRate(ArrayList<Double> waterRate) {
+		this.waterRate = waterRate;
+	}
+
+	public ArrayList<Double> getWaterCut() {
+		return waterCut;
+	}
+
+	public void setWaterCut(ArrayList<Double> waterCut) {
+		this.waterCut = waterCut;
+	}
+
+	public ArrayList<Double> getVcorNorm() {
+		return vcorNorm;
+	}
+
+	public void setVcorNorm(ArrayList<Double> vcorNorm) {
+		this.vcorNorm = vcorNorm;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public Additional getAddInfo() {
+		return addInfo;
+	}
+
+	public void setAddInfo(Additional addInfo) {
+		this.addInfo = addInfo;
+	}
+
+	public Conditions getConditions() {
+		return conditions;
+	}
+
+	public void setConditions(Conditions conditions) {
+		this.conditions = conditions;
+	}
+
+	public ProductionData getProduction() {
+		return production;
+	}
+
+	public void setProduction(ProductionData production) {
+		this.production = production;
+	}
+
+	private StellInfo getStell() {
+		return stell;
+	}
+
+	private void setStell(StellInfo stell) {
+		this.stell = stell;
+	}
+
+	public Angle getAngle() {
+		return angle;
+	}
+
+	public void setAngle(Angle angle) {
+		this.angle = angle;
+	}
+
+	public DetailOutput getDetailOut() {
+		return detailOut;
+	}
+
+	public void setDetailOut(DetailOutput detailOut) {
+		this.detailOut = detailOut;
+	}
+
+	public double getLiqFlowRate() {
+		return liqFlowRate;
+	}
+
+	public void setLiqFlowRate(double liqFlowRate) {
+		this.liqFlowRate = liqFlowRate;
+	}
+
+	public double getZfactor() {
+		return Zfactor;
+	}
+
+	public void setZfactor(double zfactor) {
+		Zfactor = zfactor;
+	}
+
+	public double getSeqInhibitEff() {
+		return seqInhibitEff;
+	}
+
+	public void setSeqInhibitEff(double seqInhibitEff) {
+		this.seqInhibitEff = seqInhibitEff;
 	}
 }
