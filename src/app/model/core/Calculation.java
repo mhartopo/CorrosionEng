@@ -257,13 +257,14 @@ public class Calculation {
 	}
 	
 	public void calcMassLoss() {
-		double massloss;
+		double massloss = 0;
 		for(int i = 0; i <= Vars.EXPORSURE_TIME; i++) {
-			massloss = getPercentMassLoss(i);
 			if(massloss > 100) {
-				massloss = 100;
+				getMassLoss().add(100.d);
+			} else {
+				massloss = getPercentMassLoss(i);
+				getMassLoss().add(massloss);
 			}
-			getMassLoss().add(massloss);
 		}
 	}
 	

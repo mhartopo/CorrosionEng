@@ -16,4 +16,12 @@ public class Converter {
 	public static double tempKtoC(double tempK) {
 		return tempK - 273;
 	}
+	
+	public static double bara2Psia(double bara) {
+		return bara * 14.5037743897283;
+	}
+	
+	public static double psia2Bara(double psia) {
+		return psia / 14.5037743897283;
+	}
 }

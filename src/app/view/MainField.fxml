@@ -517,7 +517,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" text="Save Chart">
+                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" onAction="#saveCorrosionChart" text="Save Chart">
                                                          <graphic>
                                                             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -638,7 +638,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" text="Save Chart">
+                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" onAction="#saveOtherChart" text="Save Chart">
                                                          <graphic>
                                                             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -662,12 +662,12 @@
                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <ChoiceBox prefHeight="25.0" prefWidth="428.0" GridPane.columnIndex="1">
+                                                            <ChoiceBox fx:id="chartOption" prefHeight="25.0" prefWidth="428.0" GridPane.columnIndex="1">
                                                                <GridPane.margin>
                                                                   <Insets left="60.0" top="20.0" />
                                                                </GridPane.margin>
                                                             </ChoiceBox>
-                                                            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="OK" GridPane.columnIndex="2">
+                                                            <Button mnemonicParsing="false" onAction="#reDreawOther" prefHeight="25.0" prefWidth="59.0" text="OK" GridPane.columnIndex="2">
                                                                <GridPane.margin>
                                                                   <Insets top="20.0" />
                                                                </GridPane.margin>
