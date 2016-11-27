@@ -1,14 +1,18 @@
 package app.view;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import app.model.core.*;
 import app.model.info.DrawOpt;
 import app.model.info.Vars;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-public class ChartViewController {
+public class ChartViewController implements Initializable {
 	@FXML
 	private LineChart<Number, Number> lineChart;
 	@FXML
@@ -16,15 +20,15 @@ public class ChartViewController {
 	@FXML
 	private NumberAxis yAxis;
 	
+	
 	public void initialize() {
 		lineChart.setAnimated(false);
 		lineChart.setCreateSymbols(false);
 	}
 	
-	public void drawChart(Calculation calc, int op) {
+	public void drawChart(Calculation calc, int op, LineChart<Number, Number> lineChart, String name) {
 		lineChart.getData().clear();
 		XYChart.Series<Number, Number> series = new XYChart.Series<>();
-		String name = "";
         // Create a XYChart.Data
 		if(op == DrawOpt.mass_loss) {
 			for (int i = 0; i <= Vars.EXPORSURE_TIME; i++) {
@@ -83,5 +87,11 @@ public class ChartViewController {
 		}
 		series.setName(name);
         lineChart.getData().add(series);
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }

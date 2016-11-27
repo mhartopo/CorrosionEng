@@ -8,4 +8,5 @@ public class Vars {
 	public static final int ANNULAR_MIST_FLOW = 0;
 	public static final int BUBBLE_SLUG_FLOW = 1;
 	public static int EXPORSURE_TIME = 4380;
+	
 }

@@ -1,6 +1,9 @@
 package app.model.params;
 
 public class StellInfo {
+	
+	public static final int NORMALIZED = 0;
+	public static final int QUNCHED_AND_TEMP = 1;
 	private double tubingDepth;
 	private double tubingOutDiameter;
 	private double tubingThick;

@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="704.0" prefWidth="1271.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.MainFieldController">
+   <children>
+      <VBox prefHeight="685.0" prefWidth="1250.0" AnchorPane.bottomAnchor="-35.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ToolBar prefHeight="45.0" prefWidth="1250.0">
+              <items>
+                <Button ellipsisString="" mnemonicParsing="false" onAction="#newProject" text="New">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../res/icons/new.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button mnemonicParsing="false" onAction="#open" text="Open">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../res/icons/folder.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#save" text="Save">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../res/icons/save.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#saveAs" text="Save As">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../res/icons/saveas.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#run" text="Run">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../res/icons/statistics.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Help">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../res/icons/help.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+              </items>
+            </ToolBar>
+            <SplitPane dividerPositions="0.43990384615384615" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1250.0">
+               <items>
+                  <AnchorPane prefHeight="648.0" prefWidth="391.0">
+                     <children>
+                        <TabPane prefHeight="648.0" prefWidth="520.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                          <tabs>
+                            <Tab text="Project">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TextArea fx:id="tfDesc" layoutX="38.0" layoutY="141.0" prefHeight="356.0" prefWidth="490.0" />
+                                          <TextField fx:id="tfTitle" layoutX="35.0" layoutY="86.0" prefHeight="25.0" prefWidth="495.0" />
+                                          <Label layoutX="38.0" layoutY="69.0" text="Title" />
+                                          <Label layoutX="39.0" layoutY="124.0" text="Detail Description" />
+                                          <Label layoutX="31.0" layoutY="25.0" text="Project Details">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Conditions">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane layoutX="83.0" layoutY="88.0" prefHeight="609.0" prefWidth="546.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0E0;">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="5.0" text="Temperature" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="Wellhead" />
+                                                      <Label layoutX="30.0" layoutY="80.0" text="Bottomhole" />
+                                                      <TextField fx:id="tempWhC" layoutX="120.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="tempBhC" layoutX="120.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="tempWhF" layoutX="252.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="tempBhF" layoutX="252.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <Label layoutX="206.0" layoutY="40.0" text="C" />
+                                                      <Label layoutX="206.0" layoutY="80.0" text="C" />
+                                                      <Label layoutX="339.0" layoutY="40.0" text="F" />
+                                                      <Label layoutX="336.0" layoutY="79.0" text="F" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="5.0" text="Pressure" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="Wellhead" />
+                                                      <Label layoutX="30.0" layoutY="80.0" text="Bottomhole" />
+                                                      <TextField fx:id="pressWhBara" layoutX="120.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="pressBhBara" layoutX="120.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="pressWhPsia" layoutX="252.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="pressBhPsia" layoutX="252.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <Label layoutX="206.0" layoutY="40.0" text="bara" />
+                                                      <Label layoutX="206.0" layoutY="80.0" text="bara" />
+                                                      <Label layoutX="339.0" layoutY="40.0" text="psia" />
+                                                      <Label layoutX="336.0" layoutY="79.0" text="psia" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="5.0" text="Gas Composition" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="CO2" />
+                                                      <Label layoutX="30.0" layoutY="80.0" text="H2S" />
+                                                      <TextField fx:id="gasCO2" layoutX="120.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="gasH2Smol" layoutX="120.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="gasH2Sppm" layoutX="252.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <Label layoutX="206.0" layoutY="40.0" text="mol%" />
+                                                      <Label layoutX="206.0" layoutY="80.0" text="mol%" />
+                                                      <Label layoutX="336.0" layoutY="79.0" text="ppm" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="3">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="5.0" text="Water Chemistry" underline="true" />
+                                                      <Label layoutX="29.0" layoutY="28.0" text="NaCl" />
+                                                      <Label layoutX="29.0" layoutY="96.0" text="Bicarbonate" />
+                                                      <TextField fx:id="NaClgl" layoutX="119.0" layoutY="23.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="bicarbon" layoutX="119.0" layoutY="91.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="NaClppm" layoutX="251.0" layoutY="23.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <Label layoutX="205.0" layoutY="28.0" text="g/l" />
+                                                      <Label layoutX="205.0" layoutY="96.0" text="ppmw" />
+                                                      <Label layoutX="338.0" layoutY="28.0" text="ppm Cl-" />
+                                                      <Label layoutX="205.0" layoutY="61.0" text="ppmw" />
+                                                      <TextField fx:id="N2" layoutX="119.0" layoutY="56.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <Label layoutX="29.0" layoutY="61.0" text="N2" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="4">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="5.0" text="Standard Conditions" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="Temperature" />
+                                                      <Label layoutX="30.0" layoutY="80.0" text="Pressure" />
+                                                      <TextField fx:id="stC" layoutX="120.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="spBara" layoutX="120.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="stF" layoutX="252.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="spPsia" layoutX="252.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <Label layoutX="206.0" layoutY="40.0" text="C" />
+                                                      <Label layoutX="206.0" layoutY="80.0" text="bara" />
+                                                      <Label layoutX="339.0" layoutY="40.0" text="F" />
+                                                      <Label layoutX="336.0" layoutY="79.0" text="psia" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </GridPane>
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Production">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane layoutX="59.0" layoutY="77.0" prefHeight="609.0" prefWidth="546.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="425.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="241.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="241.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="425.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="128.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Pane prefHeight="98.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;">
+                                                   <children>
+                                                      <Label layoutX="20.0" layoutY="10.0" text="Crude Oil / Condensate" underline="true" />
+                                                      <Label layoutX="45.0" layoutY="40.0" text="Flow Rate" />
+                                                      <Label layoutX="45.0" layoutY="75.0" text="API Gravity" />
+                                                      <TextField fx:id="oilFr" layoutX="165.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+                                                      <TextField fx:id="oilApi" layoutX="165.0" layoutY="71.0" prefHeight="25.0" prefWidth="118.0" />
+                                                      <Label layoutX="286.0" layoutY="40.0" text="m3/d" />
+                                                      <Label layoutX="286.0" layoutY="75.0" text="API" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="98.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label layoutX="20.0" layoutY="10.0" text="Gas" underline="true" />
+                                                      <Label layoutX="45.0" layoutY="40.0" text="Flow Rate" />
+                                                      <TextField fx:id="gasFr" layoutX="165.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+                                                      <Label layoutX="288.0" layoutY="40.0" text="MMSm3/d" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="98.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <Label layoutX="20.0" layoutY="10.0" text="Water" underline="true" />
+                                                      <Label layoutX="45.0" layoutY="40.0" text="Flowrate at wellhead" />
+                                                      <TextField fx:id="waterFr" layoutX="165.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+                                                      <Label layoutX="289.0" layoutY="40.0" text="m3/d" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="98.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="3">
+                                                   <children>
+                                                      <Label layoutX="20.0" layoutY="10.0" text="Liquid Holdup" underline="true" />
+                                                      <Label layoutX="45.0" layoutY="40.0" text="Liq Holdup Change" />
+                                                      <TextField fx:id="liqHold" layoutX="165.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+                                                      <Label layoutX="289.0" layoutY="40.0" text="\%" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="98.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="4">
+                                                   <children>
+                                                      <Label layoutX="20.0" layoutY="10.0" text="Change Watercut at Constant Total Liquid Velocity" underline="true" />
+                                                      <Label layoutX="45.0" layoutY="40.0" text="Watercut at Bottom" />
+                                                      <TextField fx:id="watercut" layoutX="165.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+                                                      <Label layoutX="289.0" layoutY="40.0" text="\%" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </GridPane>
+                                       </children></AnchorPane>
+                                </content>
+                              </Tab>
+                              <Tab text="Stell Info">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane layoutX="83.0" layoutY="52.0" prefHeight="609.0" prefWidth="546.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="185.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="204.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="168.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Pane prefHeight="143.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="10.0" text="Tubing Dimension" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="Measured Depth" />
+                                                      <Label layoutX="30.0" layoutY="76.0" text="Outside Diameter" />
+                                                      <Label layoutX="30.0" layoutY="113.0" text="Wall Thickness" />
+                                                      <Label layoutX="30.0" layoutY="149.0" text="Weight" />
+                                                      <TextField fx:id="depth" layoutX="160.0" layoutY="36.0" maxWidth="120.0" />
+                                                      <TextField fx:id="outd" layoutX="160.0" layoutY="72.0" maxWidth="120.0" />
+                                                      <TextField fx:id="thickness" layoutX="160.0" layoutY="109.0" maxWidth="120.0" />
+                                                      <TextField fx:id="weight" layoutX="160.0" layoutY="145.0" maxWidth="120.0" />
+                                                      <Label layoutX="289.0" layoutY="40.0" text="m" />
+                                                      <Label layoutX="289.0" layoutY="76.0" text="m" />
+                                                      <Label layoutX="289.0" layoutY="113.0" text="mm" />
+                                                      <Label layoutX="289.0" layoutY="149.0" text="lb/ft" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="67.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label disable="true" layoutX="10.0" layoutY="10.0" text="Tubing Dimension" underline="true" />
+                                                      <Label disable="true" layoutX="30.0" layoutY="40.0" text="Status" />
+                                                      <CheckBox disable="true" layoutX="87.0" layoutY="40.0" mnemonicParsing="false" text="Yes" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="143.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <Label disable="true" layoutX="10.0" layoutY="10.0" text="Lower tubing section dimension" underline="true" />
+                                                      <Label disable="true" layoutX="30.0" layoutY="40.0" text="Measured Depth" />
+                                                      <Label disable="true" layoutX="30.0" layoutY="76.0" text="Outside Diameter" />
+                                                      <Label disable="true" layoutX="30.0" layoutY="113.0" text="Wall Thickness" />
+                                                      <TextField disable="true" layoutX="160.0" layoutY="36.0" maxWidth="120.0" />
+                                                      <TextField disable="true" layoutX="160.0" layoutY="72.0" maxWidth="120.0" />
+                                                      <TextField disable="true" layoutX="160.0" layoutY="109.0" maxWidth="120.0" />
+                                                      <Label disable="true" layoutX="289.0" layoutY="40.0" text="m" />
+                                                      <Label disable="true" layoutX="289.0" layoutY="76.0" text="m" />
+                                                      <Label disable="true" layoutX="289.0" layoutY="113.0" text="mm" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="143.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="3">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="10.0" text="Stell Condition" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="Status" />
+                                                      <Label layoutX="30.0" layoutY="76.0" text="Chromium" />
+                                                      <Label layoutX="30.0" layoutY="113.0" text="Carbon" />
+                                                      <TextField fx:id="stellCr" layoutX="160.0" layoutY="72.0" maxWidth="120.0" />
+                                                      <TextField fx:id="stellC" layoutX="160.0" layoutY="109.0" maxWidth="120.0" />
+                                                      <Label layoutX="289.0" layoutY="76.0" text="\%" />
+                                                      <Label layoutX="289.0" layoutY="113.0" text="\%" />
+                                                      <RadioButton fx:id="rbNorm" layoutX="160.0" layoutY="35.0" mnemonicParsing="false" selected="true" text="Normalized">
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="stellStat" />
+                                                         </toggleGroup></RadioButton>
+                                                      <RadioButton fx:id="rbQT" layoutX="259.0" layoutY="35.0" mnemonicParsing="false" text="Quenched and Tempered" toggleGroup="$stellStat" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </GridPane>
+                                       </children></AnchorPane>
+                                </content>
+                              </Tab>
+                              <Tab text="Additional Data">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane prefHeight="609.0" prefWidth="546.0">
+                                             <children>
+                                                <Pane prefHeight="143.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="10.0" text="Inhibition" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="Status" />
+                                                      <Label layoutX="30.0" layoutY="76.0" text="Inhibitor availability" />
+                                                      <Label layoutX="30.0" layoutY="113.0" text="Inhibitor efficiency" />
+                                                      <Label disable="true" layoutX="30.0" layoutY="149.0" text="Every [X] months" />
+                                                      <TextField fx:id="inAvail" layoutX="160.0" layoutY="72.0" maxWidth="120.0" />
+                                                      <TextField fx:id="inEff" layoutX="160.0" layoutY="109.0" maxWidth="120.0" />
+                                                      <TextField disable="true" layoutX="160.0" layoutY="145.0" maxWidth="120.0" />
+                                                      <Label layoutX="289.0" layoutY="76.0" text="\%" />
+                                                      <Label layoutX="289.0" layoutY="113.0" text="\%" />
+                                                      <Label disable="true" layoutX="289.0" layoutY="149.0" text="month" />
+                                                      <RadioButton fx:id="inContinu" layoutX="248.0" layoutY="33.0" mnemonicParsing="false" text="Continous">
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="inhibitionStat" />
+                                                         </toggleGroup></RadioButton>
+                                                      <RadioButton fx:id="inNone" layoutX="160.0" layoutY="32.0" mnemonicParsing="false" selected="true" text="None" toggleGroup="$inhibitionStat" />
+                                                      <RadioButton disable="true" layoutX="354.0" layoutY="32.0" mnemonicParsing="false" text="Squeeze" toggleGroup="$inhibitionStat" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="67.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label disable="true" layoutX="10.0" layoutY="10.0" text="Dissolved Fe at inlet" underline="true" />
+                                                      <Label disable="true" layoutX="30.0" layoutY="40.0" text="Status" />
+                                                      <CheckBox disable="true" layoutX="87.0" layoutY="40.0" mnemonicParsing="false" text="Supersaturater" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="143.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <Label disable="true" layoutX="10.0" layoutY="10.0" text="Organic Acid" underline="true" />
+                                                      <Label disable="true" layoutX="24.0" layoutY="40.0" text="Acetic Acid (total)" />
+                                                      <TextField disable="true" layoutX="160.0" layoutY="36.0" maxWidth="120.0" />
+                                                      <Label disable="true" layoutX="289.0" layoutY="40.0" text="ppmw" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="143.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="3">
+                                                   <children>
+                                                      <Label layoutX="10.0" layoutY="10.0" text="Stell CondiErosional Velocity of Gastion" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="43.0" text="Erosional Velocity" />
+                                                      <TextField fx:id="erVel" layoutX="160.0" layoutY="39.0" maxWidth="120.0" />
+                                                      <Label layoutX="289.0" layoutY="43.0" text="(kg/m)^0.5/s" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="185.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="204.0" minHeight="10.0" prefHeight="105.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="223.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="180.0" minHeight="10.0" prefHeight="161.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children></AnchorPane>
+                                </content>
+                              </Tab>
+                              <Tab text="Deviation Angels">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane layoutX="84.0" layoutY="110.0" prefHeight="609.0" prefWidth="546.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints maxHeight="551.0" minHeight="10.0" prefHeight="550.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="551.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TableView fx:id="tableView" layoutX="111.0" layoutY="67.0" prefHeight="550.0" prefWidth="546.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="30.0">
+                                                        <columns>
+                                                          <TableColumn fx:id="depthCol" prefWidth="75.0" text="Depth" />
+                                                          <TableColumn fx:id="angleCol" prefWidth="303.0" text="Angle" />
+                                                        </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Button layoutX="422.0" layoutY="-4.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="60.0" text="Reset" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </GridPane>
+                                       </children></AnchorPane>
+                                </content>
+                              </Tab>
+                              <Tab text="Advanced">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane prefHeight="609.0" prefWidth="546.0">
+                                             <children>
+                                                <Pane prefHeight="98.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;">
+                                                   <children>
+                                                      <Label layoutX="20.0" layoutY="10.0" text="Total Segments" underline="true" />
+                                                      <Label layoutX="45.0" layoutY="40.0" text="Segments" />
+                                                      <TextField fx:id="segment" layoutX="165.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+                                                      <Label layoutX="286.0" layoutY="40.0" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="98.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label layoutX="20.0" layoutY="10.0" text="Exporsure Time" underline="true" />
+                                                      <Label layoutX="45.0" layoutY="40.0" text="Time" />
+                                                      <TextField fx:id="exporsure" layoutX="165.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+                                                      <Label layoutX="288.0" layoutY="40.0" text="hours" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="98.0" prefWidth="546.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <Label layoutX="20.0" layoutY="10.0" text="Gas Gravity" underline="true" />
+                                                      <Label layoutX="45.0" layoutY="40.0" text="Gravity" />
+                                                      <TextField fx:id="gravity" layoutX="165.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="425.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="297.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="365.0" minHeight="10.0" prefHeight="355.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children></AnchorPane>
+                                </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="648.0" prefWidth="633.0">
+                     <children>
+                        <TabPane layoutX="39.0" layoutY="44.0" prefHeight="648.0" prefWidth="696.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                          <tabs>
+                            <Tab text="Corrosion Rate">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane layoutX="84.0" layoutY="94.0" prefHeight="609.0" prefWidth="696.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints maxHeight="530.0" minHeight="10.0" prefHeight="519.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="298.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <AnchorPane prefHeight="105.0" prefWidth="696.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label layoutX="40.0" layoutY="20.0" text="Max :">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="40.0" layoutY="50.0" text="Min :">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="minCor" layoutX="88.0" layoutY="50.0" text="val">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="maxCor" layoutX="88.0" layoutY="20.0" text="val">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" text="Save Chart">
+                                                         <graphic>
+                                                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../res/icons/save.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <LineChart fx:id="corrosionChart" layoutX="99.0" layoutY="30.0" prefHeight="519.0" prefWidth="697.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                                        <xAxis>
+                                                          <NumberAxis side="BOTTOM" fx:id="xAxisCor" />
+                                                        </xAxis>
+                                                        <yAxis>
+                                                          <NumberAxis fx:id="yAxisCor" side="LEFT" />
+                                                        </yAxis>
+                                                      </LineChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Risk Analysis">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane prefHeight="609.0" prefWidth="696.0">
+                                             <children>
+                                                <AnchorPane prefHeight="609.0" prefWidth="697.0">
+                                                   <children>
+                                                      <LineChart fx:id="riskChart" layoutX="99.0" layoutY="30.0" prefHeight="519.0" prefWidth="697.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                                         <xAxis>
+                                                            <NumberAxis side="BOTTOM" fx:id="xAxisRisk" />
+                                                         </xAxis>
+                                                         <yAxis>
+                                                            <NumberAxis fx:id="yAxisRisk" side="LEFT" />
+                                                         </yAxis>
+                                                      </LineChart>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="105.0" prefWidth="696.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label layoutX="40.0" layoutY="20.0" text="Max :">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="40.0" layoutY="50.0" text="Min :">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="minRisk" layoutX="88.0" layoutY="50.0" text="val">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="maxRisk" layoutX="88.0" layoutY="20.0" text="val">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" text="Save Chart">
+                                                         <graphic>
+                                                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../icons/save.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="530.0" minHeight="10.0" prefHeight="519.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="298.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Other Graphs">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane layoutX="-1.0" prefHeight="609.0" prefWidth="696.0">
+                                             <children>
+                                                <AnchorPane prefHeight="111.0" prefWidth="696.0" style="-fx-border-color: #E0E0E0;" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <Label layoutX="40.0" layoutY="20.0" text="Max :">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="40.0" layoutY="50.0" text="Min :">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="minOth" layoutX="88.0" layoutY="50.0" text="val">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="maxOth" layoutX="88.0" layoutY="20.0" text="val">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" text="Save Chart">
+                                                         <graphic>
+                                                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../icons/save.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <GridPane layoutX="-18.0" layoutY="1.0" prefHeight="39.0" prefWidth="665.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="1.0">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="10.0" prefWidth="59.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="590.0" minWidth="10.0" prefWidth="502.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="69.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="44.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <ChoiceBox prefHeight="25.0" prefWidth="428.0" GridPane.columnIndex="1">
+                                                               <GridPane.margin>
+                                                                  <Insets left="60.0" top="20.0" />
+                                                               </GridPane.margin>
+                                                            </ChoiceBox>
+                                                            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="OK" GridPane.columnIndex="2">
+                                                               <GridPane.margin>
+                                                                  <Insets top="20.0" />
+                                                               </GridPane.margin>
+                                                            </Button>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children></AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <LineChart fx:id="otherChart" layoutX="99.0" layoutY="30.0" prefHeight="519.0" prefWidth="697.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                                         <xAxis>
+                                                            <NumberAxis side="BOTTOM" fx:id="xAxisOth" />
+                                                         </xAxis>
+                                                         <yAxis>
+                                                            <NumberAxis fx:id="yAxisOth" side="LEFT" />
+                                                         </yAxis>
+                                                      </LineChart>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="530.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="534.0" minHeight="10.0" prefHeight="471.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="298.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </Tab>
+                              <Tab text="Details">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+               </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

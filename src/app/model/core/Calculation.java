@@ -7,6 +7,7 @@ import app.model.info.*;
 import app.model.params.*;
 
 public class Calculation {
+	private ProjectData projectData;
 	private Additional addInfo;
 	private Conditions conditions;
 	private ProductionData production;
@@ -48,20 +49,30 @@ public class Calculation {
 	private ArrayList<Double> gasVel;
 	
 	public Calculation() {
+		setProjectData(new ProjectData());
 		setDetailOut(new DetailOutput());
-		setConditions(new Conditions());
-		setProduction(new ProductionData());
-		setStell(new StellInfo());
-		setAddInfo(new Additional());
+		setConditions(getProjectData().getCondition());
+		setProduction(getProjectData().getProduction());
+		setStell(getProjectData().getStell());
+		setAddInfo(getProjectData().getAdditional());
 		setSize(Vars.TotalSegment);
-		setAngle(new Angle(getSize()));
+		setAngle(getProjectData().getAngle());
 		init();
 		setDetailOut(new DetailOutput());
 		calcTemporary();
 	}
 	
 	public Calculation(Conditions conditions, ProductionData production, StellInfo stell, Additional addInfo, Angle angle) {
+		
 		setDetailOut(new DetailOutput());
+		setProjectData(new ProjectData());
+		setDetailOut(new DetailOutput());
+		setConditions(getProjectData().getCondition());
+		setProduction(getProjectData().getProduction());
+		setStell(getProjectData().getStell());
+		setAddInfo(getProjectData().getAdditional());
+		setSize(Vars.TotalSegment);
+		setAngle(getProjectData().getAngle());
 		this.setConditions(conditions);
 		this.setProduction(production);
 		this.setStell(stell);
@@ -249,6 +260,9 @@ public class Calculation {
 		double massloss;
 		for(int i = 0; i <= Vars.EXPORSURE_TIME; i++) {
 			massloss = getPercentMassLoss(i);
+			if(massloss > 100) {
+				massloss = 100;
+			}
 			getMassLoss().add(massloss);
 		}
 	}
@@ -691,11 +705,11 @@ public class Calculation {
 		this.production = production;
 	}
 
-	private StellInfo getStell() {
+	public StellInfo getStell() {
 		return stell;
 	}
 
-	private void setStell(StellInfo stell) {
+	public void setStell(StellInfo stell) {
 		this.stell = stell;
 	}
 
@@ -737,5 +751,13 @@ public class Calculation {
 
 	public void setSeqInhibitEff(double seqInhibitEff) {
 		this.seqInhibitEff = seqInhibitEff;
+	}
+
+	public ProjectData getProjectData() {
+		return projectData;
+	}
+
+	public void setProjectData(ProjectData projectData) {
+		this.projectData = projectData;
 	}
 }
