@@ -258,7 +258,7 @@ public class Calculation {
 	
 	public void calcMassLoss() {
 		double massloss = 0;
-		for(int i = 0; i <= Vars.EXPORSURE_TIME; i++) {
+		for(int i = 0; i <= Vars.EXPORSURE_TIME; i+=6) {
 			if(massloss > 100) {
 				getMassLoss().add(100.d);
 			} else {
@@ -269,9 +269,14 @@ public class Calculation {
 	}
 	
 	public void calcDetailOut() {
-		double bottomWatercut = getWaterCut().get(getWaterCut().size()-1)/(getProduction().getOilFlowrate()+getWaterCut().get(getWaterCut().size()-1))*100;
-		getProduction().setWatercut(bottomWatercut);
-		
+		getDetailOut().setGOR(35.3147*production.getGasFlowrate()*1000000/(production.getOilFlowrate()*6.28981077043211));
+		getDetailOut().setWatercut(waterCut.get(0));
+		getDetailOut().setGasVelocity(gasVel.get(0));
+		getDetailOut().setLiqVelocity(liqVel.get(0));
+		getDetailOut().setErosionalVel(getVerosion(0));
+		getDetailOut().setWaterRate(waterRate.get(waterRate.size()-1));
+		getDetailOut().setFlowPattern(getFlowPattern(0));
+		getDetailOut().setCO2Press(getPCO2(0));
 		double densStell =  getStell().getWeight()/((Math.PI*((Math.pow((getStell().getTubingOutDiameter()/2),2))-Math.pow((innerd/2),2)))*(3.28084*3.28084))/62.428;
 		getDetailOut().setDensStell(densStell);
 	}
@@ -325,7 +330,8 @@ public class Calculation {
 	}
 	
 	public double getHCO3(int idx) {
-		return getConditions().getDisolveBicarbon()/930583.202931128*(-1/getTemperature().get(idx).getK()+1/getTemperature().get(0).getK())+getConditions().getDisolveBicarbon()/45584.5;
+		double res = getConditions().getDisolveBicarbon()/930583.202931128*(-1/getTemperature().get(idx).getK()+1/getTemperature().get(0).getK())+getConditions().getDisolveBicarbon()/((-0.0032*getConditions().getDisolveBicarbon()*getConditions().getDisolveBicarbon())+(24.678*getConditions().getDisolveBicarbon())+2194.5);
+		return res;
 	}
 	
 	public double getpHactual(int idx) {

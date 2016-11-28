@@ -7,7 +7,7 @@ public class DetailOutput {
 	private double liqVelocity; //Liq. Velocity at wellhead
 	private double erosionalVel; //Erosional velocity at wellhead
 	private double waterRate; //Water rate in bottomhole
-	private double flowPattern; //Flow Pattern at wellhead
+	private int flowPattern; //Flow Pattern at wellhead
 	private double CO2Press; //CO2 partial pres. At wellhead
 	private double densStell; //Density of Steel
 	
@@ -59,10 +59,10 @@ public class DetailOutput {
 	public void setWaterRate(double waterRate) {
 		this.waterRate = waterRate;
 	}
-	public double getFlowPattern() {
+	public int getFlowPattern() {
 		return flowPattern;
 	}
-	public void setFlowPattern(double flowPattern) {
+	public void setFlowPattern(int flowPattern) {
 		this.flowPattern = flowPattern;
 	}
 	public double getCO2Press() {

@@ -147,7 +147,7 @@
                                                       <Label layoutX="30.0" layoutY="80.0" text="H2S" />
                                                       <TextField fx:id="gasCO2" layoutX="120.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
                                                       <TextField fx:id="gasH2Smol" layoutX="120.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
-                                                      <TextField fx:id="gasH2Sppm" layoutX="252.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
+                                                      <TextField fx:id="gasH2Sppm" layoutX="253.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
                                                       <Label layoutX="206.0" layoutY="40.0" text="mol%" />
                                                       <Label layoutX="206.0" layoutY="80.0" text="mol%" />
                                                       <Label layoutX="336.0" layoutY="79.0" text="ppm" />
@@ -160,11 +160,9 @@
                                                       <Label layoutX="29.0" layoutY="96.0" text="Bicarbonate" />
                                                       <TextField fx:id="NaClgl" layoutX="119.0" layoutY="23.0" prefHeight="25.0" prefWidth="80.0" />
                                                       <TextField fx:id="bicarbon" layoutX="119.0" layoutY="91.0" prefHeight="25.0" prefWidth="80.0" />
-                                                      <TextField fx:id="NaClppm" layoutX="251.0" layoutY="23.0" prefHeight="25.0" prefWidth="80.0" />
-                                                      <Label layoutX="205.0" layoutY="28.0" text="g/l" />
+                                                      <Label layoutX="205.0" layoutY="28.0" text="ppmw" />
                                                       <Label layoutX="205.0" layoutY="96.0" text="ppmw" />
-                                                      <Label layoutX="338.0" layoutY="28.0" text="ppm Cl-" />
-                                                      <Label layoutX="205.0" layoutY="61.0" text="ppmw" />
+                                                      <Label layoutX="205.0" layoutY="61.0" text="mol%" />
                                                       <TextField fx:id="N2" layoutX="119.0" layoutY="56.0" prefHeight="25.0" prefWidth="80.0" />
                                                       <Label layoutX="29.0" layoutY="61.0" text="N2" />
                                                    </children>
@@ -176,12 +174,8 @@
                                                       <Label layoutX="30.0" layoutY="80.0" text="Pressure" />
                                                       <TextField fx:id="stC" layoutX="120.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
                                                       <TextField fx:id="spBara" layoutX="120.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
-                                                      <TextField fx:id="stF" layoutX="252.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
-                                                      <TextField fx:id="spPsia" layoutX="252.0" layoutY="75.0" prefHeight="25.0" prefWidth="80.0" />
-                                                      <Label layoutX="206.0" layoutY="40.0" text="C" />
-                                                      <Label layoutX="206.0" layoutY="80.0" text="bara" />
-                                                      <Label layoutX="339.0" layoutY="40.0" text="F" />
-                                                      <Label layoutX="336.0" layoutY="79.0" text="psia" />
+                                                      <Label layoutX="206.0" layoutY="40.0" text="F" />
+                                                      <Label layoutX="206.0" layoutY="80.0" text="psia" />
                                                    </children>
                                                 </Pane>
                                              </children>
@@ -538,6 +532,7 @@
                                                           <NumberAxis fx:id="yAxisCor" side="LEFT" />
                                                         </yAxis>
                                                       </LineChart>
+                                                      <JFXSpinner fx:id="spinner" layoutX="338.0" layoutY="224.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </children>
@@ -586,7 +581,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" text="Save Chart">
+                                                      <Button layoutX="573.0" layoutY="35.0" mnemonicParsing="false" onAction="#saveRiskChart" text="Save Chart">
                                                          <graphic>
                                                             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -703,7 +698,72 @@
                               </Tab>
                               <Tab text="Details">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <GridPane layoutX="149.0" layoutY="104.0" prefHeight="609.0" prefWidth="697.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="301.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="385.0" minWidth="10.0" prefWidth="251.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="79.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0e0;">
+                                                   <children>
+                                                      <Label layoutX="15.0" layoutY="15.0" text="At Wellhead" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="GOR" />
+                                                      <Label layoutX="30.0" layoutY="79.0" text="Watercut" />
+                                                      <TextField fx:id="gorwh" editable="false" layoutX="107.0" layoutY="36.0" prefHeight="25.0" prefWidth="110.0" />
+                                                      <TextField fx:id="wcwh" editable="false" layoutX="107.0" layoutY="74.0" prefHeight="25.0" prefWidth="110.0" />
+                                                      <TextField fx:id="flowwh" editable="false" layoutX="107.0" layoutY="109.0" prefHeight="25.0" prefWidth="110.0" />
+                                                      <Label layoutX="30.0" layoutY="114.0" text="Flow Pattern" />
+                                                      <TextField fx:id="co2wh" editable="false" layoutX="107.0" layoutY="148.0" prefHeight="25.0" prefWidth="110.0" />
+                                                      <Label layoutX="30.0" layoutY="152.0" text="CO2 Press" />
+                                                      <Label layoutX="235.0" layoutY="79.0" text="\%" />
+                                                      <Label layoutX="235.0" layoutY="50.0" text="scf/bbl" />
+                                                      <Label layoutX="231.0" layoutY="150.0" text="bar" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0e0;" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label layoutX="15.0" layoutY="15.0" text="At Bottomhole" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="48.0" text="Water Rate" />
+                                                      <TextField fx:id="wrbh" editable="false" layoutX="107.0" layoutY="44.0" prefHeight="25.0" prefWidth="110.0" />
+                                                      <Label layoutX="226.0" layoutY="47.0" text="m3/d" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0e0;" GridPane.columnIndex="1">
+                                                   <children>
+                                                      <Label layoutX="15.0" layoutY="15.0" text="Velocities at Wellhead" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="Gas" />
+                                                      <Label layoutX="30.0" layoutY="79.0" text="Liquid" />
+                                                      <TextField fx:id="vgas" editable="false" layoutX="107.0" layoutY="36.0" prefHeight="25.0" prefWidth="110.0" />
+                                                      <TextField fx:id="vliq" editable="false" layoutX="107.0" layoutY="74.0" prefHeight="25.0" prefWidth="111.0" />
+                                                      <TextField fx:id="vero" editable="false" layoutX="107.0" layoutY="115.0" prefHeight="25.0" prefWidth="111.0" />
+                                                      <Label layoutX="30.0" layoutY="120.0" text="Erosional" />
+                                                      <Label layoutX="226.0" layoutY="41.0" text="m/s" />
+                                                      <Label layoutX="225.0" layoutY="78.0" text="m/s" />
+                                                      <Label layoutX="227.0" layoutY="117.0" text="API" />
+                                                   </children>
+                                                </Pane>
+                                                <Pane layoutX="315.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #E0E0e0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label layoutX="15.0" layoutY="15.0" text="Density of Stell" underline="true" />
+                                                      <Label layoutX="30.0" layoutY="40.0" text="Density" />
+                                                      <Label layoutX="30.0" layoutY="79.0" text="Density" />
+                                                      <TextField fx:id="denslb" editable="false" layoutX="107.0" layoutY="36.0" prefHeight="25.0" prefWidth="110.0" />
+                                                      <TextField fx:id="densg" editable="false" layoutX="107.0" layoutY="74.0" prefHeight="25.0" prefWidth="111.0" />
+                                                      <Label layoutX="226.0" layoutY="40.0" text="lb/ft3" />
+                                                      <Label layoutX="227.0" layoutY="77.0" text="g/cm3" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </GridPane>
+                                       </children></AnchorPane>
                                 </content>
                               </Tab>
                           </tabs>

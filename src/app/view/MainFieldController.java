@@ -12,6 +12,8 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 
+import com.jfoenix.controls.JFXSpinner;
+
 import app.model.core.Calculation;
 import app.model.core.MinMax;
 import app.model.info.DrawOpt;
@@ -197,7 +199,32 @@ public class MainFieldController implements Initializable {
 	@FXML
 	private ChoiceBox<String> chartOption;
 
+	@FXML
+	private JFXSpinner spinner;
 	//END OF CHARTS
+	
+	//Detail Output //
+	@FXML
+	private TextField gorwh;
+	@FXML
+	private TextField wcwh;
+	@FXML
+	private TextField flowwh;
+	@FXML
+	private TextField co2wh;
+	@FXML
+	private TextField wrbh;
+	@FXML
+	private TextField vgas;
+	@FXML
+	private TextField vliq;
+	@FXML
+	private TextField vero;
+	@FXML
+	private TextField denslb;
+	@FXML
+	private TextField densg;
+	//end detail output
 	
 	private HashMap<String, Integer> chartOpt;
 	private Calculation calc;
@@ -217,6 +244,8 @@ public class MainFieldController implements Initializable {
 		drawRisk();
 		initOtherChart();
 		drawOtherChart();
+		fillDetail();
+		spinner.setVisible(false);
 	}
 	
 	private void initOtherChart() {
@@ -242,6 +271,7 @@ public class MainFieldController implements Initializable {
 	
 	@SuppressWarnings("unchecked")
 	private void fillTable() {
+		
         tableView.getColumns().clear();
         dataAngle.clear();
         ArrayList<AngleDepth> tuppleArr = AngleDepth.makeAngleDepth(calc.getAngle().getAngles(), calc.getDepth(), calc.getSize());
@@ -275,10 +305,15 @@ public class MainFieldController implements Initializable {
 	
 	
 	@FXML
-	public void run(ActionEvent event) throws Exception  {
+	private void run(ActionEvent event) throws Exception  {
+		spinner.setVisible(true);
 		updateAll();
 		drawCorrosion();
 		drawRisk();
+		drawOtherChart();
+		fillTable();
+		fillDetail();
+		spinner.setVisible(false);
 	}
 	
 	@FXML
@@ -366,8 +401,8 @@ public class MainFieldController implements Initializable {
         // Create a XYChart.Data
 		
 		if(op == DrawOpt.mass_loss) {
-			for (int i = 0; i <= Vars.EXPORSURE_TIME; i++) {
-				series.getData().add(new XYChart.Data<>(i, calc.getMassLoss().get(i)));
+			for (int i = 0; i <= Vars.EXPORSURE_TIME; i+=6) {
+				series.getData().add(new XYChart.Data<>(i/6, calc.getMassLoss().get(i/6)));
 	        }
 			 m = MinMax.getMinMax(calc.getMassLoss());
 			 min.setText(Double.toString(m.getMin()));
@@ -536,6 +571,27 @@ public class MainFieldController implements Initializable {
 		calc.calcAll();
 	}
 	
+	private void fillDetail() {
+		NumberFormat df = new DecimalFormat("#0.00"); 
+		gorwh.setText(df.format(calc.getDetailOut().getGOR()));
+		wcwh.setText(df.format(calc.getDetailOut().getWatercut()));
+		int flow = calc.getDetailOut().getFlowPattern();
+		String text  = "";
+		if(flow == Vars.ANNULAR_MIST_FLOW) {
+			text = "Annular-mist flow";
+		}else if(flow == Vars.BUBBLE_SLUG_FLOW) {
+			text = "Bubble/slug flow";
+		}
+		flowwh.setText(text);
+		co2wh.setText(df.format(calc.getDetailOut().getCO2Press()));
+		wrbh.setText(df.format(calc.getDetailOut().getWaterRate()));
+		vgas.setText(df.format(calc.getDetailOut().getGasVelocity()));
+		vliq.setText(df.format(calc.getDetailOut().getLiqVelocity()));
+		vero.setText(df.format(calc.getDetailOut().getErosionalVel()));
+		denslb.setText(df.format(calc.getDetailOut().getDensStell()*62.428));
+		densg.setText(df.format(calc.getDetailOut().getDensStell()));
+	}
+	
 	public void initCondition() {
 		tfTitle.setText(calc.getProjectData().getName());
 		tfDesc.setText(calc.getProjectData().getDescriptions());
@@ -655,9 +711,18 @@ public class MainFieldController implements Initializable {
 	}
 	
 	public void updateAdv() {
-		calc.getProjectData().setTotalSegement(Integer.parseInt(segment.getText()));
+		int before = calc.getAngle().getSize();
+		int current = Integer.parseInt(segment.getText());
+		calc.setSize(current);
+		calc.getProjectData().setTotalSegement(current);
 		calc.getProjectData().setExporsureTime(Integer.parseInt(exporsure.getText()));
 		calc.getProjectData().setGasGravity(Double.parseDouble(gravity.getText()));
+		int overhead = current - before;
+		if(overhead > 0) {
+			for(int i = 0 ; i < overhead; i++) {
+				calc.getAngle().getAngles().add(0.d);
+			}
+		}
 	}
 	
 }
